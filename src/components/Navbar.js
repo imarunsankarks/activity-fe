@@ -1,15 +1,15 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Navber = () => {
-    return ( 
+    return (
         <header>
             <div className="container">
                 <Link to="/">
-                    <h1>Activity Logs</h1>
+                    <h1>Activity Tracker</h1>
                 </Link>
             </div>
         </header>
-     );
+    );
 }
- 
+
 export default Navber;
