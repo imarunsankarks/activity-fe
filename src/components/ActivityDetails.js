@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ActivityDetails = (props) => {
   const value = props.activity;
@@ -12,10 +13,11 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      console.log(json.error);
+      toast.error(json.error)
     } else {
       // props.onDelete(id);
       props.onUpdate();
+      toast.error("Activity deleted!")
     }
   };
 
@@ -31,12 +33,14 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      console.log(json.error);
+      // console.log(json.error);
+      toast.error(json.error)
     } else {
       // const time = await response.json();
       // const createdAt = (time.createdAt);
       // props.onUpdate({ _id: id, title, description, createdAt }); 
       props.onUpdate();
+      toast.success('Activity updated')
     }
   };
 
@@ -74,6 +78,7 @@ const ActivityDetails = (props) => {
         />
         <button>Update</button>
         <span className="updateFormClose" onClick={() => { showUpdate(props.index); }}>Close</span>
+        <Toaster />
       </form>
     </div>
   );

@@ -1,9 +1,10 @@
 import { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ActivityForm = (props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +27,8 @@ const ActivityForm = (props) => {
             setTitle('')
             setDescription('')
             setError(null)
-            console.log('New activity added');
+            // console.log('New activity added');
+            toast.success('New activity added')
             // props.onAdd(json);
             props.onUpdate();
         }
@@ -45,6 +47,7 @@ const ActivityForm = (props) => {
                 setDescription(e.target.value)
             }} value={description} />
             <button>Add Activity</button>
+            <Toaster />
             {error && <div className="error">{error}</div>}
 
         </form>
