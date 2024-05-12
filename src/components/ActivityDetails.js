@@ -44,6 +44,11 @@ const ActivityDetails = (props) => {
     }
   };
 
+  const updatedAtDate = new Date(value.updatedAt);
+  const differenceInMs = Date.now() - updatedAtDate.getTime();
+  const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
+  const differenceInHr = differenceInMinutes > 60 ? Math.floor(differenceInMinutes / 60) : 0;
+
   const showUpdate = (index) => {
     const updateForm = document.querySelectorAll(".update");
     updateForm[index].classList.toggle("show");
@@ -57,7 +62,8 @@ const ActivityDetails = (props) => {
       </div>
       <h3>{value.title}</h3>
       <p>{value.description}</p>
-      <span>{value.createdAt.split('T')[0]}</span>
+      {differenceInHr > 0 ? <span>{`Updated ${differenceInHr} hours  ago`}</span> : <span>{`Updated ${differenceInMinutes} minutes ago`}</span>}
+
       <form
         className="update"
         onSubmit={(e) => {
