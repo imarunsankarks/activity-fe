@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
+  const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const {signup, loading, error} = useSignup()
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    await signup(email, password);
+    // console.log(userid, password);
+    await signup(userid, password);
   };
   return (
     <form className="signup" onSubmit={handleSubmit}>
@@ -17,10 +18,10 @@ const Signup = () => {
         Username
       </label>
       <input
-        type="email"
+        type="userid"
         placeholder="Username"
         onChange={(e) => {
-          setEmail(e.target.value);
+          setUserid(e.target.value);
         }}
       />
       <label>
