@@ -1,14 +1,25 @@
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import { useAuthContext } from "../hooks/useAuthContext";
+
 
 const ActivityDetails = (props) => {
   const value = props.activity;
+  const { user } = useAuthContext();
+
   const [title, setTitle] = useState(value.title);
   const [description, setDescription] = useState(value.description);
+  if(!user){
+    toast.error("You must be logged in to alter an activity.")
+    return;
+}
 
   const deleteActivity = async (id) => {
     const response = await fetch("/api/routes/" + id, {
       method: "DELETE",
+      headers: {
+        'Authorization':`Bearer ${user.token}`
+      },
     });
 
     if (!response.ok) {
@@ -28,6 +39,7 @@ const ActivityDetails = (props) => {
       body: JSON.stringify(activity),
       headers: {
         "Content-Type": "application/json",
+        'Authorization':`Bearer ${user.token}`
       },
     });
 

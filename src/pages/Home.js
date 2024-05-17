@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import ActivityDetails from "../components/ActivityDetails";
 import ActivityForm from "../components/ActivityForm";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
   const [activity, setActivity] = useState(null);
+  const {user} = useAuthContext();
 
   const fetchData = () => {
-    fetch("/api/routes/")
+    fetch('/api/routes/',{
+      headers:{
+        'Authorization':`Bearer ${user.token}`
+      }
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -23,9 +29,11 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log('inside useEffect');
+    if (user) {
     fetchData()
-  }, []);
+    }
+    
+  }, [user]);
 
 
   // In Home component
