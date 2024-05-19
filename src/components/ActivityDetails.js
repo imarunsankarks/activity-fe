@@ -9,16 +9,16 @@ const ActivityDetails = (props) => {
 
   const [title, setTitle] = useState(value.title);
   const [description, setDescription] = useState(value.description);
-  if(!user){
-    toast.error("You must be logged in to alter an activity.")
+  if (!user) {
+    // toast.error("You must be logged in to alter an activity.")
     return;
-}
+  }
 
   const deleteActivity = async (id) => {
     const response = await fetch("/api/routes/" + id, {
       method: "DELETE",
       headers: {
-        'Authorization':`Bearer ${user.token}`
+        'Authorization': `Bearer ${user.token}`
       },
     });
 
@@ -39,7 +39,7 @@ const ActivityDetails = (props) => {
       body: JSON.stringify(activity),
       headers: {
         "Content-Type": "application/json",
-        'Authorization':`Bearer ${user.token}`
+        'Authorization': `Bearer ${user.token}`
       },
     });
 
