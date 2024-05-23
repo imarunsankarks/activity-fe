@@ -1,19 +1,22 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuthContext } from "../hooks/useAuthContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ActivityForm = (props) => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [cost, setCost] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const activity = { title, description };
-    if(!user){
-        toast.error("You must be logged in to create an activity.")
-        return;
+    const activity = { title, cost, startDate };
+    if (!user) {
+      toast.error("You must be logged in to create an activity.");
+      return;
     }
 
     const response = await fetch("/api/routes/", {
@@ -32,7 +35,7 @@ const ActivityForm = (props) => {
     }
     if (response.ok) {
       setTitle("");
-      setDescription("");
+      setCost("");
       setError(null);
       // console.log('New activity added');
       toast.success("New activity added");
@@ -47,18 +50,20 @@ const ActivityForm = (props) => {
       <label>Title</label>
       <input
         type="text"
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
+        onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
-      <label>Description</label>
+      <label>Cost</label>
       <input
-        type="text"
-        onChange={(e) => {
-          setDescription(e.target.value);
-        }}
-        value={description}
+        type="number"
+        onChange={(e) => setCost(e.target.value)}
+        value={cost}
+      />
+      <label>Date</label>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        dateFormat="dd/MM/yyyy" 
       />
       <button>Add Activity</button>
       <Toaster />

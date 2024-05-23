@@ -8,7 +8,7 @@ const ActivityDetails = (props) => {
   const { user } = useAuthContext();
 
   const [title, setTitle] = useState(value.title);
-  const [description, setDescription] = useState(value.description);
+  const [cost, setCost] = useState(value.cost);
   if (!user) {
     // toast.error("You must be logged in to alter an activity.")
     return;
@@ -33,7 +33,7 @@ const ActivityDetails = (props) => {
   };
 
   const updateValue = async (id) => {
-    const activity = { title, description };
+    const activity = { title, cost };
     const response = await fetch("/api/routes/" + id, {
       method: "PATCH",
       body: JSON.stringify(activity),
@@ -72,8 +72,9 @@ const ActivityDetails = (props) => {
         <button onClick={() => { showUpdate(props.index); }}>Edit</button>
         <button onClick={() => { deleteActivity(value._id); }}>x</button>
       </div>
+      <span>Added on {value.date.split('T')[0]}</span>
       <h3>{value.title}</h3>
-      <p>{value.description}</p>
+      <p>Rs. {value.cost}</p>
       {differenceInHr > 0 ? <span>{`Updated ${differenceInHr} hours  ago`}</span> : <span>{`Updated ${differenceInMinutes} minutes ago`}</span>}
 
       <form
@@ -91,8 +92,8 @@ const ActivityDetails = (props) => {
         />
         <input
           type="text"
-          onChange={(e) => { setDescription(e.target.value); }}
-          value={description}
+          onChange={(e) => { setCost(e.target.value); }}
+          value={cost}
         />
         <button>Update</button>
         <span className="updateFormClose" onClick={() => { showUpdate(props.index); }}>Close</span>

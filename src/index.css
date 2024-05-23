@@ -107,7 +107,9 @@ input.error {
 .create {
   width: 40%;
 }
-
+.all-activities{
+  width: 100%;
+}
 .each-activity {
   background: #ffffff;
   padding: 1px 20px 20px;
@@ -220,4 +222,7 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+.react-datepicker-wrapper{
+  display: block !important;
 }

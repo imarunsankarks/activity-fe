@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const Home = () => {
   const [activity, setActivity] = useState(null);
+  const [filteredActivities, setFilteredActivities] = useState(null);
   const {user} = useAuthContext();
 
   const fetchData = () => {
@@ -22,6 +23,7 @@ const Home = () => {
       .then((json) => {
         const fetchedActivity = json;
         setActivity(fetchedActivity);
+        setFilteredActivities(fetchedActivity);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -60,11 +62,27 @@ const Home = () => {
     fetchData();
   }
 
+  const handleUpdate = (selectedDate) => {
+    if(selectedDate){
+      const date = new Date(selectedDate); 
+      setFilteredActivities(activity.filter(item => {
+        const itemDate = new Date(item.date);
+        return itemDate.toDateString() === date.toDateString();
+      }));
+    }else{
+      setFilteredActivities(activity);
+    }
+  };
+  
+
   return (
     <div className="home">
+      <div>
+        <input type="date" onChange={(e)=>{handleUpdate(e.target.value)}} />
+      </div>
       <div className="all-activities">
-        {activity &&
-          activity.map((item, index) => (
+        {filteredActivities &&
+          filteredActivities.map((item, index) => (
             <ActivityDetails
               activity={item}
               key={item._id}
