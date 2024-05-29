@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import ActivityDetails from "../components/ActivityDetails";
-import ActivityForm from "../components/ActivityForm";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { motion } from "framer-motion";
 
 const Home = () => {
-  const [activity, setActivity] = useState(null);
-  const [filteredActivities, setFilteredActivities] = useState(null);
-  const {user} = useAuthContext();
+  const [activity, setActivity] = useState([]);
+  const [filteredActivities, setFilteredActivities] = useState([]);
+  const { user } = useAuthContext();
+  const [total, setTotal] = useState(0);
+  const [selectedType, setSelectedType] = useState("all");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
 
   const fetchData = () => {
-    fetch('/api/routes/',{
-      headers:{
-        'Authorization':`Bearer ${user.token}`
-      }
+    fetch("/api/routes/", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     })
       .then((response) => {
         if (!response.ok) {
@@ -21,81 +25,174 @@ const Home = () => {
         return response.json();
       })
       .then((json) => {
-        const fetchedActivity = json;
-        setActivity(fetchedActivity);
-        setFilteredActivities(fetchedActivity);
+        setActivity(json);
+        setFilteredActivities(json);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }
+  };
 
   useEffect(() => {
     if (user) {
-    fetchData()
+      fetchData();
     }
-    
   }, [user]);
-
-
-  // In Home component
-  // const handleDelete = (id) => {
-  //   setActivity(activity.filter(item => item._id !== id));
-  // };
-
-  // const handleUpdate = (updatedActivity) => {
-  //   console.log(updatedActivity);
-  //   setActivity(activity.map(item => {
-  //     if (item._id === updatedActivity._id) {
-  //       return updatedActivity;
-  //     }
-  //     return item;
-  //   }));
-  // };
-
-  // const handleAdd = (newActivity) => {
-  //   console.log(activity);
-  //   setActivity([newActivity, ...activity]);
-  // }
 
   const updateData = () => {
     fetchData();
-  }
+  };
 
   const handleUpdate = (selectedDate) => {
-    if(selectedDate){
-      const date = new Date(selectedDate); 
-      setFilteredActivities(activity.filter(item => {
-        const itemDate = new Date(item.date);
-        return itemDate.toDateString() === date.toDateString();
-      }));
-    }else{
+    const month = document.getElementById("month-filter");
+    month.value = "";
+    setSelectedType('all');
+    setSelectedMonth('')
+    if (selectedDate) {
+      const date = new Date(selectedDate);
+      setSelectedDate(date.toDateString())
+      setFilteredActivities(
+        activity.filter((item) => {
+          const itemDate = new Date(item.date);
+          return itemDate.toDateString() === date.toDateString();
+        })
+      );
+    } else {
       setFilteredActivities(activity);
     }
   };
-  
+
+  const monthUpdate = (selectedDate) => {
+    const day = document.getElementById("day-filter");
+    day.value = "";
+    setSelectedType('all');
+    setSelectedDate('')
+    if (selectedDate) {
+      const date = new Date(selectedDate);
+      setSelectedMonth(date.getMonth())
+      setFilteredActivities(
+        activity.filter((item) => {
+          const itemDate = new Date(item.date);
+          return (
+            itemDate.getMonth() === date.getMonth() &&
+            itemDate.getYear() === date.getYear()
+          );
+        })
+      );
+    } else {
+      setFilteredActivities(activity);
+    }
+  };
+
+  const typeUpdate = (selectedType) => {
+    setSelectedType(selectedType);
+    if(selectedMonth || selectedDate){
+      if (selectedType === 'all') {
+        setFilteredActivities(activity.filter((item) =>{
+          const itemDate = new Date(item.date);
+          return (itemDate.getMonth() === selectedMonth || itemDate.toDateString() === selectedDate )
+        }  ));
+      } else {
+        setFilteredActivities(activity.filter((item) =>{
+          const itemDate = new Date(item.date);
+          return ((item.type === selectedType && itemDate.getMonth() === selectedMonth ) || (item.type === selectedType && itemDate.toDateString() === selectedDate ))
+        }  ));
+      }
+    }else{
+      if (selectedType === 'all') {
+        setFilteredActivities(activity);
+      } else {
+        setFilteredActivities(activity.filter((item) =>{
+          return (item.type === selectedType )
+        }  ));
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  useEffect(() => {
+    if (filteredActivities) {
+      const totalCost = filteredActivities.reduce(
+        (acc, item) => acc + item.cost,
+        0
+      );
+      setTotal(totalCost);
+    }
+  }, [filteredActivities]);
 
   return (
     <div className="home">
-      <div>
-        <input type="date" onChange={(e)=>{handleUpdate(e.target.value)}} />
+      <h1>
+        <span>Hi, </span>
+        {user.userid.split("@")[0]}
+      </h1>
+      <div className="dateFilter">
+        <div className="day-input">
+          <input
+            type="date"
+            onChange={(e) => {
+              handleUpdate(e.target.value);
+            }}
+            id="day-filter"
+          />
+          <label>
+            D
+          </label>
+        </div>
+        <div className="month-input">
+          <input
+            type="month"
+            onChange={(e) => {
+              monthUpdate(e.target.value);
+            }}
+            id="month-filter"
+          />
+          <label>
+            M
+          </label>
+        </div>
       </div>
-      <div className="all-activities">
-        {filteredActivities &&
-          filteredActivities.map((item, index) => (
-            <ActivityDetails
-              activity={item}
-              key={item._id}
-              index={index}
-              onUpdate={updateData}
-            />
-          ))}
-      </div>
-      <ActivityForm
-        onUpdate={updateData} />
+      <select className="typeFilter" value={selectedType} onChange={(e) => typeUpdate(e.target.value)}>
+        <option value="all">All</option>
+        <option value="expense">Expense</option>
+        <option value="savings">Savings</option>
+      </select>
+
+      <motion.div
+        className="card-list all-activities"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {filteredActivities.map((item, index) => (
+          <ActivityDetails
+            activity={item}
+            key={item._id}
+            index={index}
+            onUpdate={updateData}
+            cardVariants={cardVariants}
+          />
+        ))}
+      </motion.div>
+      <p className="total">
+        <span>Your {selectedType} &nbsp;</span> {total}
+      </p>
     </div>
   );
-
 };
 
 export default Home;

@@ -8,12 +8,13 @@ const ActivityForm = (props) => {
   const [title, setTitle] = useState("");
   const [cost, setCost] = useState("");
   const [startDate, setStartDate] = useState(new Date());
+  const [type, setType] = useState("expense");
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const activity = { title, cost, startDate };
+    const activity = { title, cost, startDate, type };
     if (!user) {
       toast.error("You must be logged in to create an activity.");
       return;
@@ -36,30 +37,31 @@ const ActivityForm = (props) => {
     if (response.ok) {
       setTitle("");
       setCost("");
+      setType("expense")
       setError(null);
       // console.log('New activity added');
       toast.success("New activity added");
       // props.onAdd(json);
-      props.onUpdate();
+      // props.onUpdate();
     }
   };
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h2>Add a new activity</h2>
-      <label>Title</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
-        value={title}
+        value={title} placeholder="for what you have spend?"
       />
-      <label>Cost</label>
       <input
         type="number"
         onChange={(e) => setCost(e.target.value)}
-        value={cost}
+        value={cost} placeholder="how much did you spend?"
       />
-      <label>Date</label>
+      <select value={type} onChange={(e) => setType(e.target.value)}>
+        <option value="expense">Expense</option>
+        <option value="savings">Savings</option>
+      </select>
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}

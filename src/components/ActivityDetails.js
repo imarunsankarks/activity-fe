@@ -1,16 +1,16 @@
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuthContext } from "../hooks/useAuthContext";
-
+import { motion } from 'framer-motion';
 
 const ActivityDetails = (props) => {
-  const value = props.activity;
+  const { activity, cardVariants, index, onUpdate } = props;
   const { user } = useAuthContext();
 
-  const [title, setTitle] = useState(value.title);
-  const [cost, setCost] = useState(value.cost);
+  const [title, setTitle] = useState(activity.title);
+  const [cost, setCost] = useState(activity.cost);
+
   if (!user) {
-    // toast.error("You must be logged in to alter an activity.")
     return;
   }
 
@@ -24,19 +24,18 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      toast.error(json.error)
+      toast.error(json.error);
     } else {
-      // props.onDelete(id);
-      props.onUpdate();
-      toast.error("Activity deleted!")
+      onUpdate();
+      toast.error("Activity deleted!");
     }
   };
 
   const updateValue = async (id) => {
-    const activity = { title, cost };
+    const updatedActivity = { title, cost };
     const response = await fetch("/api/routes/" + id, {
       method: "PATCH",
-      body: JSON.stringify(activity),
+      body: JSON.stringify(updatedActivity),
       headers: {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${user.token}`
@@ -45,18 +44,14 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      // console.log(json.error);
-      toast.error(json.error)
+      toast.error(json.error);
     } else {
-      // const time = await response.json();
-      // const createdAt = (time.createdAt);
-      // props.onUpdate({ _id: id, title, description, createdAt }); 
-      props.onUpdate();
-      toast.success('Activity updated')
+      onUpdate();
+      toast.success('Activity updated');
     }
   };
 
-  const updatedAtDate = new Date(value.updatedAt);
+  const updatedAtDate = new Date(activity.updatedAt);
   const differenceInMs = Date.now() - updatedAtDate.getTime();
   const differenceInMinutes = Math.floor(differenceInMs / (1000 * 60));
   const differenceInHr = differenceInMinutes > 60 ? Math.floor(differenceInMinutes / 60) : 0;
@@ -67,22 +62,21 @@ const ActivityDetails = (props) => {
   };
 
   return (
-    <div className="each-activity">
+    <motion.div className="card each-activity" variants={cardVariants}>
       <div className="alter-buttons">
-        <button onClick={() => { showUpdate(props.index); }}>Edit</button>
-        <button onClick={() => { deleteActivity(value._id); }}>x</button>
+        <button onClick={() => { showUpdate(index); }}>E</button>
+        <button onClick={() => { deleteActivity(activity._id); }}>x</button>
       </div>
-      <span>Added on {value.date.split('T')[0]}</span>
-      <h3>{value.title}</h3>
-      <p>Rs. {value.cost}</p>
-      {differenceInHr > 0 ? <span>{`Updated ${differenceInHr} hours  ago`}</span> : <span>{`Updated ${differenceInMinutes} minutes ago`}</span>}
-
+      <span>Added on {activity.date.split('T')[0]}</span>
+      <h3>{activity.title}</h3>
+      <p><span>Rs. </span>{activity.cost}</p>
+      {differenceInHr > 0 ? <span>{`Updated ${differenceInHr} hours ago`}</span> : <span>{`Updated ${differenceInMinutes} minutes ago`}</span>}
       <form
         className="update"
         onSubmit={(e) => {
           e.preventDefault();
-          updateValue(value._id);
-          showUpdate(props.index);
+          updateValue(activity._id);
+          showUpdate(index);
         }}
       >
         <input
@@ -95,11 +89,12 @@ const ActivityDetails = (props) => {
           onChange={(e) => { setCost(e.target.value); }}
           value={cost}
         />
-        <button>Update</button>
-        <span className="updateFormClose" onClick={() => { showUpdate(props.index); }}>Close</span>
+        <button>U</button>
+        <span className="updateFormClose" onClick={() => { showUpdate(index); }}>Close</span>
         <Toaster />
       </form>
-    </div>
+
+    </motion.div>
   );
 };
 

@@ -13,21 +13,18 @@ const Signup = () => {
   };
   return (
     <form className="signup" onSubmit={handleSubmit}>
-      <h3>Sign Up</h3>
-      <label>
-        Username
-      </label>
+      <h1><span>Hi, </span>Buddy</h1>
+      <p>Let's start tracking your expenses</p>
+      <h5>Are you new here?</h5>
+      
       <input
         type="userid"
-        placeholder="Username"
+        placeholder="userid"
         onChange={(e) => {
           setUserid(e.target.value);
         }}
       />
-      <label>
-        Password
-      </label>
-      <input type="text" placeholder="Password" onChange={(e) => {
+      <input type="text" placeholder="password" onChange={(e) => {
           setPassword(e.target.value);
         }} />
       <button disabled={loading}>Signup</button>

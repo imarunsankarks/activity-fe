@@ -1,35 +1,37 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 
-
 const Login = () => {
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
-  const {login, loading, error} = useLogin()
+  const { login, loading, error } = useLogin();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     await login(userid, password);
   };
   return (
     <form className="login" onSubmit={handleSubmit}>
-      <h3>Login</h3>
-      <label>
-        Username
-      </label>
+      <h1><span>Hi, </span>Buddy</h1>
+      <p>C'mon, let's see your expenses</p>
+
       <input
         type="userid"
-        placeholder="Username"
+        placeholder="userid"
         onChange={(e) => {
           setUserid(e.target.value);
-        }} value={userid}
+        }}
+        value={userid}
       />
-      <label>
-        Password
-      </label>
-      <input type="text" placeholder="Password" onChange={(e) => {
+
+      <input
+        type="text"
+        placeholder="password"
+        onChange={(e) => {
           setPassword(e.target.value);
-        }} value={password} />
+        }}
+        value={password}
+      />
       <button disabled={loading}>Login</button>
       {error && <div className="error">{error}</div>}
     </form>
