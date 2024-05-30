@@ -71,6 +71,7 @@ const Home = () => {
       );
     } else {
       setFilteredActivities(activity);
+      setSelectedDate("");
     }
   };
 
@@ -93,6 +94,7 @@ const Home = () => {
       );
     } else {
       setFilteredActivities(activity);
+      setSelectedMonth("");
     }
   };
 
@@ -131,6 +133,7 @@ const Home = () => {
             return item.type === selectedType;
           })
         );
+
       }
     }
   };
