@@ -20,7 +20,7 @@ const ActivityForm = () => {
       return;
     }
 
-    const response = await fetch("/api/routes/", {
+    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/", {
       method: "POST",
       body: JSON.stringify(activity),
       headers: {

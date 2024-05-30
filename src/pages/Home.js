@@ -15,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      fetch("/api/routes/", {
+      fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -223,8 +223,8 @@ const Home = () => {
               selectedType === "savings"
                 ? "#479e39"
                 : selectedType === "expense"
-                ? "#e23d3d"
-                : "#f3f3f3",
+                  ? "#e23d3d"
+                  : "#f3f3f3",
           }}
         >
           {total}

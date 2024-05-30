@@ -15,7 +15,7 @@ const ActivityDetails = (props) => {
   }
 
   const deleteActivity = async (id) => {
-    const response = await fetch("/api/routes/" + id, {
+    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/" + id, {
       method: "DELETE",
       headers: {
         'Authorization': `Bearer ${user.token}`
@@ -32,9 +32,9 @@ const ActivityDetails = (props) => {
     }
   };
 
-  const updateValue = async (id,date) => {
+  const updateValue = async (id, date) => {
     const updatedActivity = { title, cost, date };
-    const response = await fetch("/api/routes/" + id, {
+    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/" + id, {
       method: "PATCH",
       body: JSON.stringify(updatedActivity),
       headers: {
@@ -47,10 +47,10 @@ const ActivityDetails = (props) => {
       const json = await response.json();
       toast.error(json.error);
     } else {
-       const time = await response.json();
+      const time = await response.json();
       const createdAt = (time.createdAt);
       const updatedAt = new Date().toISOString();
-      onUpdate({ _id: id, title, cost,date, createdAt,updatedAt })
+      onUpdate({ _id: id, title, cost, date, createdAt, updatedAt })
       // onUpdate();
       toast.success('Activity updated');
     }
