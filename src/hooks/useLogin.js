@@ -9,7 +9,7 @@ export const useLogin = () => {
   const login = async (userid, password) => {
     setLoading(true);
     setError(null);
-    const response = await fetch("/api/user/login/", {
+    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/user/login/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userid, password }),
