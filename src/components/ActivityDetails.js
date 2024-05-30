@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { motion } from 'framer-motion';
 
 const ActivityDetails = (props) => {
-  const { activity, cardVariants, index, onUpdate } = props;
+  const { activity, cardVariants, index, onUpdate, onDelete } = props;
   const { user } = useAuthContext();
 
   const [title, setTitle] = useState(activity.title);
@@ -26,13 +26,14 @@ const ActivityDetails = (props) => {
       const json = await response.json();
       toast.error(json.error);
     } else {
-      onUpdate();
+      // onUpdate();
+      onDelete(id);
       toast.error("Activity deleted!");
     }
   };
 
-  const updateValue = async (id) => {
-    const updatedActivity = { title, cost };
+  const updateValue = async (id,date) => {
+    const updatedActivity = { title, cost, date };
     const response = await fetch("/api/routes/" + id, {
       method: "PATCH",
       body: JSON.stringify(updatedActivity),
@@ -46,7 +47,11 @@ const ActivityDetails = (props) => {
       const json = await response.json();
       toast.error(json.error);
     } else {
-      onUpdate();
+       const time = await response.json();
+      const createdAt = (time.createdAt);
+      const updatedAt = new Date().toISOString();
+      onUpdate({ _id: id, title, cost,date, createdAt,updatedAt })
+      // onUpdate();
       toast.success('Activity updated');
     }
   };
@@ -67,15 +72,16 @@ const ActivityDetails = (props) => {
         <button onClick={() => { showUpdate(index); }}>E</button>
         <button onClick={() => { deleteActivity(activity._id); }}>x</button>
       </div>
-      <span>Added on {activity.date.split('T')[0]}</span>
+      {activity.date && <span>Added on {activity.date.split('T')[0]}</span>}
       <h3>{activity.title}</h3>
       <p><span>Rs. </span>{activity.cost}</p>
       {differenceInHr > 0 ? <span>{`Updated ${differenceInHr} hours ago`}</span> : <span>{`Updated ${differenceInMinutes} minutes ago`}</span>}
+
       <form
         className="update"
         onSubmit={(e) => {
           e.preventDefault();
-          updateValue(activity._id);
+          updateValue(activity._id, activity.date);
           showUpdate(index);
         }}
       >

@@ -347,5 +347,13 @@
     top: 7px;
     z-index: -1;
   }
+  .to-signup{
+    text-align: center;
+    margin-top: 50px;
+  }
+  .to-signup button{
+    padding: 0;
+    color: #2e9955;
+  }
 
 }

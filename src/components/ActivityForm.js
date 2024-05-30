@@ -4,7 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ActivityForm = (props) => {
+const ActivityForm = () => {
   const [title, setTitle] = useState("");
   const [cost, setCost] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -39,7 +39,6 @@ const ActivityForm = (props) => {
       setCost("");
       setType("expense")
       setError(null);
-      // console.log('New activity added');
       toast.success("New activity added");
       // props.onAdd(json);
       // props.onUpdate();

@@ -12,38 +12,50 @@ const Home = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
 
-  const fetchData = () => {
-    fetch("/api/routes/", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((json) => {
-        setActivity(json);
-        setFilteredActivities(json);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  };
 
   useEffect(() => {
     if (user) {
-      fetchData();
+      fetch("/api/routes/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((json) => {
+          setActivity(json);
+          setFilteredActivities(json);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     }
   }, [user]);
 
-  const updateData = () => {
-    fetchData();
+
+
+  const handleDelete = (id) => {
+    const updatedActivities = filteredActivities.filter((item) => item._id !== id);
+    setFilteredActivities(updatedActivities);
+    setActivity(activity.filter((item) => item._id !== id));
   };
 
-  const handleUpdate = (selectedDate) => {
+  const handleUpdate = (updatedActivity) => {
+    const updatedActivities = filteredActivities.map((item) => {
+      if (item._id === updatedActivity._id) {
+        return updatedActivity;
+      }
+      return item;
+    });
+    setFilteredActivities(updatedActivities);
+    setActivity(activity.map((item) => (item._id === updatedActivity._id ? updatedActivity : item)));
+  };
+
+  const dayUpdate = (selectedDate) => {
     const month = document.getElementById("month-filter");
     month.value = "";
     setSelectedType("all");
@@ -141,7 +153,7 @@ const Home = () => {
   useEffect(() => {
     if (filteredActivities) {
       const totalCost = filteredActivities.reduce(
-        (acc, item) => acc + item.cost,
+        (acc, item) => acc + parseFloat(item.cost),
         0
       );
       setTotal(totalCost);
@@ -159,7 +171,7 @@ const Home = () => {
           <input
             type="date"
             onChange={(e) => {
-              handleUpdate(e.target.value);
+              dayUpdate(e.target.value);
             }}
             id="day-filter"
           />
@@ -197,7 +209,8 @@ const Home = () => {
             activity={item}
             key={item._id}
             index={index}
-            onUpdate={updateData}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
             cardVariants={cardVariants}
           />
         ))}
