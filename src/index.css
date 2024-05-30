@@ -1,5 +1,5 @@
 /* google font */
-@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 
 /* layout */
 :root {
@@ -94,7 +94,7 @@ form button {
 }
 div.error {
   padding: 10px;
-  background: #ffefef;
+  /* background: #ffefef; */
   border: 1px solid var(--error);
   color: var(--error);
   border-radius: 4px;
@@ -107,7 +107,7 @@ input.error {
 .create {
   width: 40%;
 }
-.all-activities{
+.all-activities {
   width: 100%;
 }
 .each-activity {
@@ -207,7 +207,7 @@ nav a {
   margin-left: 10px;
 }
 
-nav button{
+nav button {
   background: #ffffff00;
   color: var(--primary);
   border: 0px solid var(--primary);
@@ -216,13 +216,14 @@ nav button{
   cursor: pointer;
 }
 /* auth forms */
-form.signup, form.login {
+form.signup,
+form.login {
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
   background: #fff;
   border-radius: 4px;
 }
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
   display: block !important;
 }

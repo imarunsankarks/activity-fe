@@ -29,10 +29,10 @@ const ActivityForm = () => {
       },
     });
 
-    const json = await response.json();
+    // const json = await response.json();
 
     if (!response.ok) {
-      setError(json.error);
+      setError('Fill all the fields');
     }
     if (response.ok) {
       setTitle("");
@@ -64,7 +64,7 @@ const ActivityForm = () => {
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
-        dateFormat="dd/MM/yyyy" 
+        dateFormat="dd/MM/yyyy"
       />
       <button>Add Activity</button>
       <Toaster />
