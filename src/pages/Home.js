@@ -46,11 +46,11 @@ const Home = () => {
   const handleUpdate = (selectedDate) => {
     const month = document.getElementById("month-filter");
     month.value = "";
-    setSelectedType('all');
-    setSelectedMonth('')
+    setSelectedType("all");
+    setSelectedMonth("");
     if (selectedDate) {
       const date = new Date(selectedDate);
-      setSelectedDate(date.toDateString())
+      setSelectedDate(date.toDateString());
       setFilteredActivities(
         activity.filter((item) => {
           const itemDate = new Date(item.date);
@@ -65,11 +65,11 @@ const Home = () => {
   const monthUpdate = (selectedDate) => {
     const day = document.getElementById("day-filter");
     day.value = "";
-    setSelectedType('all');
-    setSelectedDate('')
+    setSelectedType("all");
+    setSelectedDate("");
     if (selectedDate) {
       const date = new Date(selectedDate);
-      setSelectedMonth(date.getMonth())
+      setSelectedMonth(date.getMonth());
       setFilteredActivities(
         activity.filter((item) => {
           const itemDate = new Date(item.date);
@@ -86,25 +86,39 @@ const Home = () => {
 
   const typeUpdate = (selectedType) => {
     setSelectedType(selectedType);
-    if(selectedMonth || selectedDate){
-      if (selectedType === 'all') {
-        setFilteredActivities(activity.filter((item) =>{
-          const itemDate = new Date(item.date);
-          return (itemDate.getMonth() === selectedMonth || itemDate.toDateString() === selectedDate )
-        }  ));
+    if (selectedMonth || selectedDate) {
+      if (selectedType === "all") {
+        setFilteredActivities(
+          activity.filter((item) => {
+            const itemDate = new Date(item.date);
+            return (
+              itemDate.getMonth() === selectedMonth ||
+              itemDate.toDateString() === selectedDate
+            );
+          })
+        );
       } else {
-        setFilteredActivities(activity.filter((item) =>{
-          const itemDate = new Date(item.date);
-          return ((item.type === selectedType && itemDate.getMonth() === selectedMonth ) || (item.type === selectedType && itemDate.toDateString() === selectedDate ))
-        }  ));
+        setFilteredActivities(
+          activity.filter((item) => {
+            const itemDate = new Date(item.date);
+            return (
+              (item.type === selectedType &&
+                itemDate.getMonth() === selectedMonth) ||
+              (item.type === selectedType &&
+                itemDate.toDateString() === selectedDate)
+            );
+          })
+        );
       }
-    }else{
-      if (selectedType === 'all') {
+    } else {
+      if (selectedType === "all") {
         setFilteredActivities(activity);
       } else {
-        setFilteredActivities(activity.filter((item) =>{
-          return (item.type === selectedType )
-        }  ));
+        setFilteredActivities(
+          activity.filter((item) => {
+            return item.type === selectedType;
+          })
+        );
       }
     }
   };
@@ -149,9 +163,7 @@ const Home = () => {
             }}
             id="day-filter"
           />
-          <label>
-            D
-          </label>
+          <label>D</label>
         </div>
         <div className="month-input">
           <input
@@ -161,12 +173,14 @@ const Home = () => {
             }}
             id="month-filter"
           />
-          <label>
-            M
-          </label>
+          <label>M</label>
         </div>
       </div>
-      <select className="typeFilter" value={selectedType} onChange={(e) => typeUpdate(e.target.value)}>
+      <select
+        className="typeFilter"
+        value={selectedType}
+        onChange={(e) => typeUpdate(e.target.value)}
+      >
         <option value="all">All</option>
         <option value="expense">Expense</option>
         <option value="savings">Savings</option>
@@ -189,7 +203,19 @@ const Home = () => {
         ))}
       </motion.div>
       <p className="total">
-        <span>Your {selectedType} &nbsp;</span> {total}
+        Your {selectedType} &nbsp;
+        <span
+          style={{
+            color:
+              selectedType === "savings"
+                ? "#479e39"
+                : selectedType === "expense"
+                ? "#e23d3d"
+                : "#f3f3f3",
+          }}
+        >
+          {total}
+        </span>
       </p>
     </div>
   );
