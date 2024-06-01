@@ -200,7 +200,7 @@
     top: 15px;
     right: 20px;
     font-size: 16px;
-}
+  }
   .create select option,
   .typeFilter option {
     background: #1c1c1c;
@@ -230,7 +230,7 @@
   }
 
   .signup button {
-    color: #479e39;
+    color: rgb(235, 148, 17);
   }
   form.signup,
   form.login {
@@ -261,7 +261,7 @@
     position: absolute;
     width: 380px;
     height: 380px;
-    background: #479e3999;
+    background: rgba(235, 148, 17, 0.544);
     filter: blur(100px);
     right: 50px;
     top: 50px;
@@ -294,10 +294,12 @@
   .logo {
     background: transparent;
     border: 0;
+    position: relative;
   }
+
   .logo img {
-    width: 15px;
-    padding: 5px;
+    width: 25px;
+    /* padding: 5px; */
   }
   .total {
     position: fixed;
@@ -310,7 +312,6 @@
     font-weight: 100;
     /* color: #e23d3d; */
     color: #f3f3f3;
-
   }
   .total span {
     font-size: 28px;
@@ -332,10 +333,12 @@
   }
 
   .day-input input {
-    background: linear-gradient(105deg, #ff62626e, #1414148a);
+    background: linear-gradient(105deg, #bd3a3ac9, #1414148a);
+    height: 44px;
   }
   .month-input input {
-    background: linear-gradient(105deg, #f8ca4a5e, #1414148a);
+    background: linear-gradient(105deg, #ddab20b0, #1414148a);
+    height: 44px;
   }
 
   .day-input label,
@@ -347,13 +350,88 @@
     top: 7px;
     z-index: -1;
   }
-  .to-signup{
+  .to-signup {
     text-align: center;
     margin-top: 50px;
   }
-  .to-signup button{
+  .to-signup button {
     padding: 0;
-    color: #2e9955;
+    color: rgb(235, 148, 17);
+  }
+  /* ------------------------loading----------------------- */
+  .spinner {
+    --size: 30px;
+    --first-block-clr: rgb(235, 148, 17);
+    --second-block-clr: rgb(235, 17, 17);
+    --clr: #111;
+    width: 100px;
+    height: 100px;
+    position: relative;
   }
 
+  .spinner::after,
+  .spinner::before {
+    box-sizing: border-box;
+    position: absolute;
+    content: "";
+    width: var(--size);
+    height: var(--size);
+    top: 50%;
+    animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+    left: 50%;
+    background: var(--first-block-clr);
+    border-radius: 50%;
+  }
+
+  .spinner::after {
+    background: var(--second-block-clr);
+    top: calc(50% - var(--size));
+    left: calc(50% - var(--size));
+    animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+  }
+
+  @keyframes down {
+    0%,
+    100% {
+      transform: none;
+    }
+
+    25% {
+      transform: translateX(100%);
+    }
+
+    50% {
+      transform: translateX(100%) translateY(100%);
+    }
+
+    75% {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes up {
+    0%,
+    100% {
+      transform: none;
+    }
+
+    25% {
+      transform: translateX(-100%);
+    }
+
+    50% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+
+    75% {
+      transform: translateY(-100%);
+    }
+  }
+  .loading-screen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }

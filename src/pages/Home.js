@@ -11,6 +11,7 @@ const Home = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const Home = () => {
         .then((json) => {
           setActivity(json);
           setFilteredActivities(json);
+          setLoading(false)
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -164,76 +166,82 @@ const Home = () => {
   }, [filteredActivities]);
 
   return (
-    <div className="home">
-      <h1>
-        <span>Hi, </span>
-        {user.userid.split("@")[0]}
-      </h1>
-      <div className="dateFilter">
-        <div className="day-input">
-          <input
-            type="date"
-            onChange={(e) => {
-              dayUpdate(e.target.value);
-            }}
-            id="day-filter"
-          />
-          <label>D</label>
+    <>
+      {loading && <div className="loading-screen">
+        <div class="spinner"></div><h2>Loading...</h2></div>}
+      {!loading && <div className="home">
+        <h1>
+          <span>Hi, </span>
+          {user.userid.split("@")[0]}
+        </h1>
+        <div className="dateFilter">
+          <div className="day-input">
+            <input
+              type="date"
+              onChange={(e) => {
+                dayUpdate(e.target.value);
+              }}
+              id="day-filter"
+            />
+            <label>D</label>
+          </div>
+          <div className="month-input">
+            <input
+              type="month"
+              onChange={(e) => {
+                monthUpdate(e.target.value);
+              }}
+              id="month-filter"
+            />
+            <label>M</label>
+          </div>
         </div>
-        <div className="month-input">
-          <input
-            type="month"
-            onChange={(e) => {
-              monthUpdate(e.target.value);
-            }}
-            id="month-filter"
-          />
-          <label>M</label>
-        </div>
-      </div>
-      <select
-        className="typeFilter"
-        value={selectedType}
-        onChange={(e) => typeUpdate(e.target.value)}
-      >
-        <option value="all">All</option>
-        <option value="expense">Expense</option>
-        <option value="savings">Savings</option>
-      </select>
-
-      <motion.div
-        className="card-list all-activities"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {filteredActivities.map((item, index) => (
-          <ActivityDetails
-            activity={item}
-            key={item._id}
-            index={index}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-            cardVariants={cardVariants}
-          />
-        ))}
-      </motion.div>
-      <p className="total">
-        Your {selectedType} &nbsp;
-        <span
-          style={{
-            color:
-              selectedType === "savings"
-                ? "#479e39"
-                : selectedType === "expense"
-                  ? "#e23d3d"
-                  : "#f3f3f3",
-          }}
+        <select
+          className="typeFilter"
+          value={selectedType}
+          onChange={(e) => typeUpdate(e.target.value)}
         >
-          {total}
-        </span>
-      </p>
-    </div>
+          <option value="all">All</option>
+          <option value="expense">Expense</option>
+          <option value="savings">Savings</option>
+        </select>
+
+        <motion.div
+          className="card-list all-activities"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {filteredActivities.map((item, index) => (
+            <ActivityDetails
+              activity={item}
+              key={item._id}
+              index={index}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              cardVariants={cardVariants}
+            />
+          ))}
+        </motion.div>
+        <p className="total">
+          Your {selectedType} &nbsp;
+          <span
+            style={{
+              color:
+                selectedType === "savings"
+                  ? "#479e39"
+                  : selectedType === "expense"
+                    ? "#e23d3d"
+                    : "#f3f3f3",
+            }}
+          >
+            {total}
+          </span>
+        </p>
+      </div>}
+
+    </>
+
   );
 };
 
