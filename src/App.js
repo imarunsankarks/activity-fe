@@ -17,11 +17,11 @@ function App() {
 
             <Route
               path="/signup"
-              element={<Signup />}
+              element={user ? <Navigate to="/" /> : <Signup />}
             />
             <Route
               path="/login"
-              element={<Login />}
+              element={user ? <Navigate to="/" /> : <Login />}
             />
             <Route
               path="/"
