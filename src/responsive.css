@@ -68,7 +68,7 @@
   .each-activity {
     background: linear-gradient(105deg, #8f8f8f, #292929);
     min-height: auto;
-    padding: 15px;
+    padding: 18px;
   }
   .each-activity p {
     position: absolute;

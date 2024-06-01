@@ -162,7 +162,8 @@ input.error {
 
 .each-activity span {
   color: #b8b8b8;
-  font-size: 12px;
+  font-size: 10px;
+  font-weight: 100;
 }
 
 form.update {
