@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import ActivityDetails from "../components/ActivityDetails";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { motion } from "framer-motion";
+import Navbar from "../components/Navbar";
+
 
 const Home = () => {
   const [activity, setActivity] = useState([]);
@@ -167,8 +169,9 @@ const Home = () => {
 
   return (
     <>
+      <Navbar />
       {loading && <div className="loading-screen">
-        <div class="spinner"></div><h2>Loading...</h2></div>}
+        <div className="spinner"></div><h2>Loading...</h2></div>}
       {!loading && <div className="home">
         <h1>
           <span>Hi, </span>

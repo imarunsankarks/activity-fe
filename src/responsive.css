@@ -1,8 +1,13 @@
 @media screen and (max-width: 567px) {
   body {
     background: #1c1c1c;
+    /* background: url(../public/ep-bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
     margin: 0;
-    color: #f3f3fe;
+    color: #f3f3f3;
+    min-height: 100vh;
   }
   .home {
     display: flex;
@@ -32,7 +37,7 @@
   .login h1,
   .signup h1 {
     text-transform: capitalize;
-    font-size: 42px;
+    font-size: 36px;
     margin: 10px 0;
   }
   .home h1 span,
@@ -44,12 +49,13 @@
   .add-title p,
   .login p,
   .signup p {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 100;
   }
   header {
     position: fixed;
     bottom: 0;
+    left: 0;
     width: 100%;
     background: transparent;
   }
@@ -62,19 +68,19 @@
   .each-activity {
     background: linear-gradient(105deg, #8f8f8f, #292929);
     min-height: auto;
-    padding: 25px;
+    padding: 15px;
   }
   .each-activity p {
     position: absolute;
     right: 20px;
     bottom: 12px;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 600;
     margin: 0;
   }
   .each-activity h3 {
     margin: 10px 0;
-    font-size: 20px;
+    font-size: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -119,7 +125,7 @@
     background: transparent;
     border: 0;
     margin: 0;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     color: #f3f3fe;
     text-align: end;
@@ -157,7 +163,7 @@
   }
   form.update.show {
     background: linear-gradient(105deg, #2e9955, #2b2b2b);
-    padding: 30px 20px 10px;
+    padding: 35px 20px 0px;
     border-radius: 15px;
     z-index: 1;
   }
@@ -199,7 +205,6 @@
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 16px;
   }
   .create select option,
   .typeFilter option {
@@ -222,7 +227,7 @@
     font-family: "Karla", sans-serif;
     border-radius: 0;
     cursor: pointer;
-    font-size: 32px;
+    font-size: 26px;
     font-weight: bold;
   }
   .login button {
