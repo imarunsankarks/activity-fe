@@ -28,20 +28,7 @@ const Navber = () => {
                 <img src="/logout.png" alt="" />
               </button>
             </div>
-          ) : (
-            <div className="">
-              <Link to="/login">
-                <button>
-                  <img src="/login.png" alt="" />
-                </button>
-              </Link>
-              <Link to="/signup">
-                <button>
-                  <img src="/signup.png" alt="" />
-                </button>
-              </Link>
-            </div>
-          )}
+          ) : null}
         </nav>
       </div>
     </header>

@@ -350,13 +350,20 @@
     top: 7px;
     z-index: -1;
   }
-  .to-signup {
+  .to-signup,
+  .to-login {
     text-align: center;
     margin-top: 50px;
+    position: relative;
+    z-index: 9;
   }
   .to-signup button {
     padding: 0;
     color: rgb(235, 148, 17);
+  }
+  .to-login button {
+    padding: 0;
+    color: rgb(235, 17, 17);
   }
   /* ------------------------loading----------------------- */
   .spinner {
