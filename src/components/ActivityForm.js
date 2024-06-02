@@ -39,7 +39,7 @@ const ActivityForm = () => {
       setCost("");
       setType("expense")
       setError(null);
-      toast.success("New activity added");
+      toast.success("New expense added");
       // props.onAdd(json);
       // props.onUpdate();
     }
@@ -66,7 +66,7 @@ const ActivityForm = () => {
         onChange={(date) => setStartDate(date)}
         dateFormat="dd/MM/yyyy"
       />
-      <button>Add Spend</button>
+      <button>Add Expense</button>
       <Toaster />
       {error && <div className="error">{error}</div>}
     </form>

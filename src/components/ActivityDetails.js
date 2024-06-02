@@ -28,7 +28,7 @@ const ActivityDetails = (props) => {
     } else {
       // onUpdate();
       onDelete(id);
-      toast.error("Activity deleted!");
+      toast.error("Expense deleted!");
     }
   };
 
@@ -52,7 +52,7 @@ const ActivityDetails = (props) => {
       const updatedAt = new Date().toISOString();
       onUpdate({ _id: id, title, cost, date, createdAt, updatedAt })
       // onUpdate();
-      toast.success('Activity updated');
+      toast.success('Expense updated');
     }
   };
 

@@ -38,6 +38,8 @@
     text-transform: capitalize;
     font-size: 36px;
     margin: 10px 0;
+    position: relative;
+    z-index: -1;
   }
   .home h1 span,
   .add-item h1 span,
@@ -348,7 +350,7 @@
   .day-input label,
   .month-input label {
     font-size: 16px;
-    font-weight: 100;
+    font-weight: 300;
     position: absolute;
     left: 18px;
     top: 12px;
