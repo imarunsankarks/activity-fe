@@ -66,7 +66,7 @@ const ActivityForm = () => {
         onChange={(date) => setStartDate(date)}
         dateFormat="dd/MM/yyyy"
       />
-      <button>Add Activity</button>
+      <button>Add Spend</button>
       <Toaster />
       {error && <div className="error">{error}</div>}
     </form>

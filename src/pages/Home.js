@@ -186,7 +186,7 @@ const Home = () => {
               }}
               id="day-filter"
             />
-            <label>D</label>
+            {!selectedDate && <label>Day</label>}
           </div>
           <div className="month-input">
             <input
@@ -196,7 +196,7 @@ const Home = () => {
               }}
               id="month-filter"
             />
-            <label>M</label>
+            {!selectedMonth && <label>Month</label>}
           </div>
         </div>
         <select
