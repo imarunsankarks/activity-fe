@@ -60,9 +60,9 @@ const Navber = () => {
                 </button>
               )}
               {isIos && !isInStandaloneMode && (
-                <div className="add-to-home-screen">
-                  <p>To install this app, tap the "Share" icon and then "Add to Home Screen".</p>
-                </div>
+                <button>
+                  <img src="/info.png" alt="" />
+                </button>
               )}
               <Link to="/add">
                 <button>
