@@ -64,6 +64,11 @@ const Navber = () => {
                   <img src="/info.png" alt="" />
                 </button>
               )}
+              <Link to="/ask">
+                <button>
+                <img src="/gpt.png" alt="" />
+                </button>
+              </Link>
               <Link to="/add">
                 <button>
                   <img src="/Add.png" alt="" />

@@ -1,5 +1,5 @@
 {
-  "proxy": "https://expensetrackerbackend-b7dz.onrender.com",
+  "proxy": "",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,

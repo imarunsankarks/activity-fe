@@ -15,7 +15,7 @@ const ActivityDetails = (props) => {
   }
 
   const deleteActivity = async (id) => {
-    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/" + id, {
+    const response = await fetch(`${process.env.REACT_APP_BE_URL}/api/routes/` + id, {
       method: "DELETE",
       headers: {
         'Authorization': `Bearer ${user.token}`
@@ -34,7 +34,7 @@ const ActivityDetails = (props) => {
 
   const updateValue = async (id, date) => {
     const updatedActivity = { title, cost, date };
-    const response = await fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/" + id, {
+    const response = await fetch(`${process.env.REACT_APP_BE_URL}/api/routes/` + id, {
       method: "PATCH",
       body: JSON.stringify(updatedActivity),
       headers: {

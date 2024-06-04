@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { useAuthContext } from "./hooks/useAuthContext";
 import Add from "./pages/Add";
+import QueryForm from "./pages/Gpt";
 
 function App() {
   const { user } = useAuthContext();
@@ -28,6 +29,10 @@ function App() {
             <Route
               path="/add"
               element={<Add />}
+            />
+            <Route
+              path="/ask"
+              element={<QueryForm/>}
             />
           </Routes>
         </div>

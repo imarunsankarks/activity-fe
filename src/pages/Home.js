@@ -18,7 +18,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      fetch("https://expensetrackerbackend-b7dz.onrender.com/api/routes/", {
+      fetch(`${process.env.REACT_APP_BE_URL}/api/routes/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
