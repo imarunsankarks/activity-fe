@@ -22,17 +22,12 @@ function App() {
               path="/login"
               element={user ? <Navigate to="/" /> : <Login />}
             />
+
+            <Route path="/add" element={user ?<Add />: <Navigate to="/login" />} />
+            <Route path="/ask" element={user ? <QueryForm />: <Navigate to="/login" />} />
             <Route
               path="/"
               element={user ? <Home /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/add"
-              element={<Add />}
-            />
-            <Route
-              path="/ask"
-              element={<QueryForm/>}
             />
           </Routes>
         </div>

@@ -242,7 +242,6 @@ const Home = () => {
           </span>
         </p>
       </div>}
-
     </>
 
   );
