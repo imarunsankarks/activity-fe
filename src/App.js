@@ -23,13 +23,28 @@ function App() {
               element={user ? <Navigate to="/" /> : <Login />}
             />
 
-            <Route path="/add" element={user ?<Add />: <Navigate to="/login" />} />
-            <Route path="/ask" element={user ? <QueryForm />: <Navigate to="/login" />} />
+            <Route
+              path="/add"
+              element={user ? <Add /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/ask"
+              element={user ? <QueryForm /> : <Navigate to="/login" />}
+            />
             <Route
               path="/"
               element={user ? <Home /> : <Navigate to="/login" />}
             />
           </Routes>
+        </div>
+        <div className="pages-md">
+          <div className="container">
+            <div className="loader"></div>
+            <div className="loader"></div>
+            <div className="loader"></div>
+          </div>
+
+          <h1>Please open in your phone.</h1>
         </div>
       </BrowserRouter>
     </div>
