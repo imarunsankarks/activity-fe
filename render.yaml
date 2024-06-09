@@ -1,9 +1,10 @@
-services:
-  - type: web
-    name: entepaisa
-    env: static
-    staticPublishPath: build
-    buildCommand: npm run build
-    routes:
-      - src: /.*
-        dest: /index.html
+static:
+  build:
+    commands:
+      - npm install
+      - npm run build
+    publish: /public
+
+rewrite:
+  - source: /**
+    destination: /index.html
