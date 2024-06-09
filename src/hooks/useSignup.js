@@ -9,7 +9,7 @@ export const useSignup = () => {
   const signup = async (userid, password) => {
     setLoading(true);
     setError(null);
-    const response = await fetch(`${process.env.BR_URL}/api/user/signup/`, {
+    const response = await fetch(`${process.env.REACT_APP_BE_URL}/api/user/signup/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userid, password }),
