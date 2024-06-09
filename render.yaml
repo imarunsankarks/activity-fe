@@ -3,7 +3,7 @@ static:
     commands:
       - npm install
       - npm run build
-    publish: /public
+    publish: /build
 
 rewrite:
   - source: /**
