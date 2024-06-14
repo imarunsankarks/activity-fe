@@ -71,7 +71,7 @@ const Navber = () => {
               </Link>
               <Link to="/user">
                 <button>
-                  <img src={user.profilePhoto} alt="" className="dp"/>
+                  <img src={user.profilePhoto || "/user.png"} alt="" className="dp"/>
                 </button>
               </Link>
              

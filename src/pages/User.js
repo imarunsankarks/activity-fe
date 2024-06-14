@@ -65,7 +65,7 @@ const User = () => {
         {user && (
           <>
             <div className="profile-pic">
-              <img src={user.profilePhoto || "/user.avif"} alt="Profile" />
+              <img src={user.profilePhoto || "/user.png"} alt="Profile" />
             </div>
             <div className="pic-button">
               <input
