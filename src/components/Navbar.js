@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
-import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import React, { useEffect, useState } from 'react';
 
 const Navber = () => {
   const { user } = useAuthContext();
-  const { logout } = useLogout();
-  const handleClick = () => {
-    logout();
-  };
 
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIos, setIsIos] = useState(false);
@@ -74,9 +69,12 @@ const Navber = () => {
                   <img src="/Add.png" alt="" />
                 </button>
               </Link>
-              <button onClick={handleClick}>
-                <img src="/logout.png" alt="" />
-              </button>
+              <Link to="/user">
+                <button>
+                  <img src={user.profilePhoto} alt="" className="dp"/>
+                </button>
+              </Link>
+             
             </div>
           ) : null}
         </nav>

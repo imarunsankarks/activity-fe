@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import { useAuthContext } from "./hooks/useAuthContext";
 import Add from "./pages/Add";
 import QueryForm from "./pages/Gpt";
+import User from "./pages/User";
 
 function App() {
   const { user } = useAuthContext();
@@ -22,8 +23,11 @@ function App() {
               path="/login"
               element={user ? <Navigate to="/" /> : <Login />}
             />
-
             <Route
+              path="/"
+              element={user ? <Home /> : <Navigate to="/login" />}
+            />
+             <Route
               path="/add"
               element={user ? <Add /> : <Navigate to="/login" />}
             />
@@ -32,8 +36,8 @@ function App() {
               element={user ? <QueryForm /> : <Navigate to="/login" />}
             />
             <Route
-              path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
+              path="/user"
+              element={user ? <User /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>
