@@ -41,7 +41,7 @@ function App() {
             />
             <Route
               path="*"
-              element={<Home />}
+              element={<Navigate to="/" />}
             />
           </Routes>
         </div>
