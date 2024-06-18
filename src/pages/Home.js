@@ -102,6 +102,25 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    if (activity.length > 0) {
+      // Call monthUpdate with current month upon component load
+      const currentDate = new Date();
+      const currentMonthInput = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`;
+      const date = new Date(currentMonthInput);
+      setSelectedMonth(date.getMonth());
+      setFilteredActivities(
+        activity.filter((item) => {
+          const itemDate = new Date(item.date);
+          return (
+            itemDate.getMonth() === date.getMonth() &&
+            itemDate.getYear() === date.getYear()
+          );
+        })
+      );
+    }
+  }, [activity]);
+
   const typeUpdate = (selectedType) => {
     setSelectedType(selectedType);
     if (selectedMonth || selectedDate) {
@@ -191,6 +210,7 @@ const Home = () => {
           <div className="month-input">
             <input
               type="month"
+              value={selectedMonth ? `${new Date().getFullYear()}-${(selectedMonth + 1).toString().padStart(2, '0')}` : ''}
               onChange={(e) => {
                 monthUpdate(e.target.value);
               }}
