@@ -6,6 +6,7 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import Add from "./pages/Add";
 import QueryForm from "./pages/Gpt";
 import User from "./pages/User";
+import Reload from "./components/Reload";
 
 function App() {
   const { user } = useAuthContext();
@@ -14,6 +15,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="pages">
+          <Reload />
           <Routes>
             <Route
               path="/signup"
@@ -27,7 +29,7 @@ function App() {
               path="/"
               element={user ? <Home /> : <Navigate to="/login" />}
             />
-             <Route
+            <Route
               path="/add"
               element={user ? <Add /> : <Navigate to="/login" />}
             />
