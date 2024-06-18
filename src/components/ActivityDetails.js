@@ -77,6 +77,14 @@ const ActivityDetails = (props) => {
     const deleteForm = document.querySelectorAll(".delete-confirm");
     deleteForm[index].classList.toggle("show");
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+  };
 
   return (
     <motion.div className="card each-activity" variants={cardVariants}>
@@ -96,7 +104,7 @@ const ActivityDetails = (props) => {
           x
         </button>
       </div>
-      {activity.date && <span>Added on {activity.date.split("T")[0]}</span>}
+      {activity.date && <span>{formatDate(activity.date)}</span>}
       <h3>{activity.title}</h3>
       <p>
         <span>Rs. </span>
