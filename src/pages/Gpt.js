@@ -31,7 +31,7 @@ const QueryForm = () => {
     e.preventDefault();
     const askquery = { query };
     if (!user) {
-      toast.error("You must be logged in to create an activity.");
+      toast.error("You must be logged in to ask any query.");
       return;
     }
 

@@ -29,15 +29,15 @@ function App() {
             />
              <Route
               path="/add"
-              element={user ? <Add /> : <Navigate to="/login" />}
+              element={<Add />}
             />
             <Route
               path="/ask"
-              element={user ? <QueryForm /> : <Navigate to="/login" />}
+              element={<QueryForm />}
             />
             <Route
               path="/user"
-              element={user ? <User /> : <Navigate to="/login" />}
+              element={<User />}
             />
           </Routes>
         </div>
