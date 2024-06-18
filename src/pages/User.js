@@ -1,12 +1,12 @@
 import Navbar from "../components/Navbar";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogout } from "../hooks/useLogout";
-// import { useState } from "react";
+import { useState } from "react";
 
 const User = () => {
   const { user, dispatch } = useAuthContext();
   const { logout } = useLogout();
-  // const [profilePic, setProfilePic] = useState(null);
+  const [isDeleteVisible, setIsDeleteVisible] = useState(false);
 
   const handleClick = () => {
     logout();
@@ -47,16 +47,38 @@ const User = () => {
       }
 
       const data = await response.json();
-      // Update the user context with the new profile photo
       dispatch({ type: "UPDATE_PROFILE_PHOTO", payload: data.profilePhoto });
-      // setProfilePic(null);
-      // Optionally update the user in localStorage
       const updatedUser = { ...user, profilePhoto: data.profilePhoto };
       localStorage.setItem("user", JSON.stringify(updatedUser));
     } catch (error) {
       alert(error.message);
     }
   };
+
+  const handleDelete = async () =>{
+    const response = await fetch(
+      `${process.env.REACT_APP_BE_URL}/api/user/` + user.user_id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const json = await response.json();
+      console.log(json.error);
+    } else {
+      console.log("User deleted!");
+      logout();
+    }
+
+  }
+
+  const showDelete = ()=>{
+    setIsDeleteVisible(!isDeleteVisible);
+  }
 
   return (
     <>
@@ -85,8 +107,8 @@ const User = () => {
                 </h1>
               </div>
               <div className="logout-sec">
-                <p>see you soon!</p>
                 <button onClick={handleClick}>Logout</button>
+                <button onClick={showDelete}>Delete</button>
               </div>
             </div>
           </>
@@ -99,6 +121,11 @@ const User = () => {
             <p>Please login</p>
           </div>
         )}
+      </div>
+      <div className={`user-delete-confirm ${isDeleteVisible ? 'show' : ''}`}>
+        <p>Are you sure to delete your account?</p>
+        <button className="yes" onClick={handleDelete}>Yes</button>
+        <button onClick={showDelete}>No</button>
       </div>
     </>
   );
