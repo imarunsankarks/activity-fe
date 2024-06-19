@@ -4,7 +4,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 
-
 const Home = () => {
   const [activity, setActivity] = useState([]);
   const [filteredActivities, setFilteredActivities] = useState([]);
@@ -14,7 +13,6 @@ const Home = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     if (user) {
@@ -32,7 +30,7 @@ const Home = () => {
         .then((json) => {
           setActivity(json);
           setFilteredActivities(json);
-          setLoading(false)
+          setLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -40,10 +38,10 @@ const Home = () => {
     }
   }, [user]);
 
-
-
   const handleDelete = (id) => {
-    const updatedActivities = filteredActivities.filter((item) => item._id !== id);
+    const updatedActivities = filteredActivities.filter(
+      (item) => item._id !== id
+    );
     setFilteredActivities(updatedActivities);
     setActivity(activity.filter((item) => item._id !== id));
   };
@@ -56,7 +54,11 @@ const Home = () => {
       return item;
     });
     setFilteredActivities(updatedActivities);
-    setActivity(activity.map((item) => (item._id === updatedActivity._id ? updatedActivity : item)));
+    setActivity(
+      activity.map((item) =>
+        item._id === updatedActivity._id ? updatedActivity : item
+      )
+    );
   };
 
   const dayUpdate = (selectedDate) => {
@@ -102,24 +104,6 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    if (activity.length > 0) {
-      // Call monthUpdate with current month upon component load
-      const currentDate = new Date();
-      const currentMonthInput = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}`;
-      const date = new Date(currentMonthInput);
-      setSelectedMonth(date.getMonth());
-      setFilteredActivities(
-        activity.filter((item) => {
-          const itemDate = new Date(item.date);
-          return (
-            itemDate.getMonth() === date.getMonth() &&
-            itemDate.getYear() === date.getYear()
-          );
-        })
-      );
-    }
-  }, [activity]);
 
   const typeUpdate = (selectedType) => {
     setSelectedType(selectedType);
@@ -156,7 +140,6 @@ const Home = () => {
             return item.type === selectedType;
           })
         );
-
       }
     }
   };
@@ -189,81 +172,90 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      {loading && <div className="loading-screen">
-        <div className="spinner"></div><h2>Loading...</h2></div>}
-      {!loading && <div className="home">
-        <h1>
-          <span>Hi, </span>
-          {user.userid.split("@")[0]}
-        </h1>
-        <div className="dateFilter">
-          <div className="day-input">
-            <input
-              type="date"
-              onChange={(e) => {
-                dayUpdate(e.target.value);
-              }}
-              id="day-filter"
-            />
-            {!selectedDate && <label>Day</label>}
-          </div>
-          <div className="month-input">
-            <input
-              type="month"
-              value={selectedMonth ? `${new Date().getFullYear()}-${(selectedMonth + 1).toString().padStart(2, '0')}` : ''}
-              onChange={(e) => {
-                monthUpdate(e.target.value);
-              }}
-              id="month-filter"
-            />
-            {!selectedMonth && <label>Month</label>}
-          </div>
+      {loading && (
+        <div className="loading-screen">
+          <div className="spinner"></div>
+          <h2>Loading...</h2>
         </div>
-        <select
-          className="typeFilter"
-          value={selectedType}
-          onChange={(e) => typeUpdate(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="expense">Expense</option>
-          <option value="savings">Savings</option>
-        </select>
+      )}
+      {!loading && (
+        <div className="home">
+          <h1>
+            <span>Hi, </span>
+            {user.userid.split("@")[0]}
+          </h1>
+          <div className="dateFilter">
+            <div className="day-input">
+              <input
+                type="date"
+                onChange={(e) => {
+                  dayUpdate(e.target.value);
+                }}
+                id="day-filter"
+              />
+              {!selectedDate && <label>Day</label>}
+            </div>
+            <div className="month-input">
+              <input
+                type="month"
+                onChange={(e) => {
+                  monthUpdate(e.target.value);
+                }}
+                id="month-filter"
+              />
 
-        <motion.div
-          className="card-list all-activities"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {filteredActivities.map((item, index) => (
-            <ActivityDetails
-              activity={item}
-              key={item._id}
-              index={index}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              cardVariants={cardVariants}
-            />
-          ))}
-        </motion.div>
-        <p className="total">
-          Your {selectedType} &nbsp;
-          <span
-            style={{
-              color:
-                selectedType === "savings"
-                  ? "#479e39"
-                  : selectedType === "expense"
+              {!selectedMonth && (
+                <label>
+                  Month
+                </label>
+              )}
+            </div>
+          </div>
+          <select
+            className="typeFilter"
+            value={selectedType}
+            onChange={(e) => typeUpdate(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="expense">Expense</option>
+            <option value="savings">Savings</option>
+          </select>
+
+          <motion.div
+            className="card-list all-activities"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredActivities.map((item, index) => (
+              <ActivityDetails
+                activity={item}
+                key={item._id}
+                index={index}
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+                cardVariants={cardVariants}
+              />
+            ))}
+          </motion.div>
+          <p className="total">
+            Your {selectedType} &nbsp;
+            <span
+              style={{
+                color:
+                  selectedType === "savings"
+                    ? "#479e39"
+                    : selectedType === "expense"
                     ? "#e23d3d"
                     : "#f3f3f3",
-            }}
-          >
-            {total}
-          </span>
-        </p>
-      </div>}
+              }}
+            >
+              {total}
+            </span>
+          </p>
+        </div>
+      )}
     </>
-
   );
 };
 
