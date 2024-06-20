@@ -314,7 +314,7 @@
   form.update input:focus {
     border: 0;
     outline: 0;
-    color: #000000;
+    /* color: #000000; */
   }
 
   form.update .updateFormClose {
