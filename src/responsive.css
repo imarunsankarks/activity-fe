@@ -921,16 +921,37 @@
     color: rgb(235, 17, 17);
     font-weight: 600;
   }
+  .searchNfind{
+    position: relative;
+  }
 
-  .search-field{
-    background: linear-gradient(105deg, #4e4e4e, #232323);
+  .searchNfind button{
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translate3d(0%, -50% , 0);
+    background: rgba(156, 156, 156, 0.247);
+    border-radius: 50%;
+    color: #ffffff;
+    border: 0;
+    outline: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    transition:all .4s ease;
+  }
+
+  .search-field {
+    background: linear-gradient(50deg, #4e4e4e61, #23232300);
     border-radius: 10px;
     outline: 0;
     border: 0;
     padding: 15px;
     margin: 0;
     color: #ffffff;
-  }
+}
   .search-field::placeholder{
     font-size: 16px;
     color: #a3a3a3;

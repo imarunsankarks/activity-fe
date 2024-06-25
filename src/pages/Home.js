@@ -232,7 +232,11 @@ const Home = () => {
             <option value="expense">Expense</option>
             <option value="savings">Savings</option>
           </select>
+          <div className="searchNfind">
           <input className="search-field" type="text" onChange={(e)=>{searchFilter(e.target.value); setSearch(e.target.value)}}  value={search} placeholder="search here..."/>
+          <button style={{opacity:search?1:0}} onClick={()=>{setSearch("")}}>x</button>
+
+          </div>
 
           <motion.div
             className="card-list all-activities"
