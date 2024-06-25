@@ -12,6 +12,7 @@ const Home = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [search,setSearch] = useState("")
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const Home = () => {
   };
 
   const dayUpdate = (selectedDate) => {
+    setSearch("")
     const month = document.getElementById("month-filter");
     month.value = "";
     setSelectedType("all");
@@ -82,6 +84,7 @@ const Home = () => {
   };
 
   const monthUpdate = (selectedDate) => {
+    setSearch("")
     const day = document.getElementById("day-filter");
     day.value = "";
     setSelectedType("all");
@@ -101,11 +104,13 @@ const Home = () => {
     } else {
       setFilteredActivities(activity);
       setSelectedMonth("");
+      
     }
   };
 
 
   const typeUpdate = (selectedType) => {
+    setSearch("")
     setSelectedType(selectedType);
     if (selectedMonth || selectedDate) {
       if (selectedType === "all") {
@@ -158,6 +163,13 @@ const Home = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const searchFilter =(value)=>{
+    
+    setFilteredActivities(activity.filter((item)=>{
+      return item.title.toLowerCase().includes(value.toLowerCase())
+      }))
+  }
 
   useEffect(() => {
     if (filteredActivities) {
@@ -220,6 +232,7 @@ const Home = () => {
             <option value="expense">Expense</option>
             <option value="savings">Savings</option>
           </select>
+          <input className="search-field" type="text" onChange={(e)=>{searchFilter(e.target.value); setSearch(e.target.value)}}  value={search} placeholder="search here..."/>
 
           <motion.div
             className="card-list all-activities"
