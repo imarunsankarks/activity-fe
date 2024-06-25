@@ -12,7 +12,7 @@ const Home = () => {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [search,setSearch] = useState("")
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Home = () => {
   };
 
   const dayUpdate = (selectedDate) => {
-    setSearch("")
+    setSearch("");
     const month = document.getElementById("month-filter");
     month.value = "";
     setSelectedType("all");
@@ -84,7 +84,7 @@ const Home = () => {
   };
 
   const monthUpdate = (selectedDate) => {
-    setSearch("")
+    setSearch("");
     const day = document.getElementById("day-filter");
     day.value = "";
     setSelectedType("all");
@@ -104,13 +104,11 @@ const Home = () => {
     } else {
       setFilteredActivities(activity);
       setSelectedMonth("");
-      
     }
   };
 
-
   const typeUpdate = (selectedType) => {
-    setSearch("")
+    setSearch("");
     setSelectedType(selectedType);
     if (selectedMonth || selectedDate) {
       if (selectedType === "all") {
@@ -164,12 +162,24 @@ const Home = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const searchFilter =(value)=>{
-    
-    setFilteredActivities(activity.filter((item)=>{
-      return item.title.toLowerCase().includes(value.toLowerCase())
-      }))
-  }
+  const searchFilter = (value) => {
+    if(selectedMonth || selectedDate){
+      setFilteredActivities(
+        activity.filter((item) => {
+          const itemDate = new Date(item.date);
+          return ((item.title.toLowerCase().includes(value.toLowerCase()) &&
+          itemDate.getMonth() === selectedMonth) ||(item.title.toLowerCase().includes(value.toLowerCase()) &&
+          itemDate.toDateString() === selectedDate) );
+        })
+      );
+    }else{
+      setFilteredActivities(
+        activity.filter((item) => {
+          return item.title.toLowerCase().includes(value.toLowerCase());
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     if (filteredActivities) {
@@ -216,11 +226,7 @@ const Home = () => {
                 id="month-filter"
               />
 
-              {!selectedMonth && (
-                <label>
-                  Month
-                </label>
-              )}
+              {!selectedMonth && <label>Month</label>}
             </div>
           </div>
           <select
@@ -233,9 +239,25 @@ const Home = () => {
             <option value="savings">Savings</option>
           </select>
           <div className="searchNfind">
-          <input className="search-field" type="text" onChange={(e)=>{searchFilter(e.target.value); setSearch(e.target.value)}}  value={search} placeholder="search here..."/>
-          <button style={{opacity:search?1:0}} onClick={()=>{searchFilter("");setSearch("")}}>x</button>
-
+            <input
+              className="search-field"
+              type="text"
+              onChange={(e) => {
+                searchFilter(e.target.value);
+                setSearch(e.target.value);
+              }}
+              value={search}
+              placeholder="search here..."
+            />
+            <button
+              style={{ opacity: search ? 1 : 0 }}
+              onClick={() => {
+                searchFilter("");
+                setSearch("");
+              }}
+            >
+              x
+            </button>
           </div>
 
           <motion.div
