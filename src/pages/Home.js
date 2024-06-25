@@ -234,7 +234,7 @@ const Home = () => {
           </select>
           <div className="searchNfind">
           <input className="search-field" type="text" onChange={(e)=>{searchFilter(e.target.value); setSearch(e.target.value)}}  value={search} placeholder="search here..."/>
-          <button style={{opacity:search?1:0}} onClick={()=>{setSearch("")}}>x</button>
+          <button style={{opacity:search?1:0}} onClick={()=>{searchFilter("");setSearch("")}}>x</button>
 
           </div>
 
