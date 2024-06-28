@@ -215,6 +215,11 @@
     padding: 10px 15px;
   }
 
+  .add-item{
+    position: relative;
+    z-index: 9;
+  }
+
   .each-activity {
     background: linear-gradient(105deg, #4e4e4e, #232323);
     min-height: auto;
