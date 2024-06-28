@@ -957,4 +957,14 @@
     color: #a3a3a3;
     font-weight: 100 !important;
   }
+  img.source-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    /* background: black; */
+    /* padding: 4px; */
+    margin-right: 10px;
+    border-radius: 3px;
+    transform: translateY(2px);
+}
 }

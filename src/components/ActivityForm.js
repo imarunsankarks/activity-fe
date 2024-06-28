@@ -9,12 +9,13 @@ const ActivityForm = () => {
   const [cost, setCost] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [type, setType] = useState("expense");
+  const [source, setSource] = useState("upi");
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const activity = { title, cost, startDate, type };
+    const activity = { title, cost, startDate, type, source };
     if (!user) {
       toast.error("You must be logged in to create an activity.");
       return;
@@ -37,7 +38,8 @@ const ActivityForm = () => {
     if (response.ok) {
       setTitle("");
       setCost("");
-      setType("expense")
+      setType("expense");
+      setSource("upi");
       setError(null);
       toast.success("New expense added");
       // props.onAdd(json);
@@ -60,6 +62,11 @@ const ActivityForm = () => {
       <select value={type} onChange={(e) => setType(e.target.value)}>
         <option value="expense">Expense</option>
         <option value="savings">Savings</option>
+      </select>
+      <select value={source} onChange={(e) => setSource(e.target.value)}>
+        <option value="upi">UPI</option>
+        <option value="card">Card</option>
+        <option value="cash">Cash</option>
       </select>
       <DatePicker
         selected={startDate}

@@ -107,6 +107,8 @@ const ActivityDetails = (props) => {
       {activity.date && <span>{formatDate(activity.date)}</span>}
       <h3>{activity.title}</h3>
       <p>
+        
+      {activity.source && <img className="source-icon" src={`/${activity.source}.png`} alt="" />}
         <span>Rs. </span>
         {activity.cost}
       </p>
