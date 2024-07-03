@@ -27,11 +27,29 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      toast.error(json.error);
+      toast(json.error, {
+        icon: "❌",
+        style: {
+          borderRadius: "12px",
+          background: "#333",
+          color: "#fff",
+          boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
+        },
+        duration: 1000,
+      });
     } else {
       // onUpdate();
       onDelete(id);
-      toast.error("Expense deleted!");
+      toast("Expense deleted!", {
+        icon: "👋",
+        style: {
+          borderRadius: "12px",
+          background: "#333",
+          color: "#fff",
+          boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
+        },
+        duration: 1000,
+      });
     }
   };
 
@@ -51,14 +69,32 @@ const ActivityDetails = (props) => {
 
     if (!response.ok) {
       const json = await response.json();
-      toast.error(json.error);
+      toast(json.error, {
+        icon: "❌",
+        style: {
+          borderRadius: "12px",
+          background: "#333",
+          color: "#fff",
+          boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
+        },
+        duration: 1000,
+      });
     } else {
       const time = await response.json();
       const createdAt = time.createdAt;
       const updatedAt = new Date().toISOString();
       onUpdate({ _id: id, title, cost, date, createdAt, updatedAt });
       // onUpdate();
-      toast.success("Expense updated");
+      toast("Expense updated!", {
+        icon: "✌️",
+        style: {
+          borderRadius: "12px",
+          background: "#333",
+          color: "#fff",
+          boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
+        },
+        duration: 1000,
+      });
     }
   };
 
@@ -79,10 +115,10 @@ const ActivityDetails = (props) => {
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     }).format(date);
   };
 
@@ -107,8 +143,9 @@ const ActivityDetails = (props) => {
       {activity.date && <span>{formatDate(activity.date)}</span>}
       <h3>{activity.title}</h3>
       <p>
-        
-      {activity.source && <img className="source-icon" src={`/${activity.source}.png`} alt="" />}
+        {activity.source && (
+          <img className="source-icon" src={`/${activity.source}.png`} alt="" />
+        )}
         <span>Rs. </span>
         {activity.cost}
       </p>
@@ -155,7 +192,7 @@ const ActivityDetails = (props) => {
       <div className="delete-confirm">
         <h4>Delete?</h4>
         <div className="buttons">
-        <button
+          <button
             className="yes"
             onClick={() => {
               deleteActivity(activity._id);
@@ -171,7 +208,6 @@ const ActivityDetails = (props) => {
           >
             N
           </button>
-       
         </div>
       </div>
     </motion.div>

@@ -17,7 +17,18 @@ const ActivityForm = () => {
     e.preventDefault();
     const activity = { title, cost, startDate, type, source };
     if (!user) {
-      toast.error("You must be logged in to create an activity.");
+      toast('Login in first!',
+        {
+          icon: '❌',
+          style: {
+            borderRadius: '12px',
+            background: '#333',
+            color: '#fff',
+            boxShadow: '0 3px 0px rgba(0, 0, 0, 0.1)',
+          },
+          duration: 1000,
+        }
+      );
       return;
     }
 
@@ -41,7 +52,18 @@ const ActivityForm = () => {
       setType("expense");
       setSource("upi");
       setError(null);
-      toast.success("New expense added");
+      toast('Expense added!',
+        {
+          icon: '👍',
+          style: {
+            borderRadius: '12px',
+            background: '#333',
+            color: '#fff',
+            boxShadow: '0 3px 0px rgba(0, 0, 0, 0.1)',
+          },
+          duration: 1000,
+        }
+      );
       // props.onAdd(json);
       // props.onUpdate();
     }

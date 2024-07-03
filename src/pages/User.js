@@ -82,7 +82,7 @@ const User = () => {
   return (
     <>
       <Navbar />
-      <div className="user fadeIn wow" data-wow-delay="0.1s">
+      <div className="user fadeIn wow" data-wow-delay="0.2s">
         {user && (
           <>
             <div className="profile-pic">
