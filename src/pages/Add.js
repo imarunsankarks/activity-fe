@@ -8,14 +8,16 @@ const Add = () => {
   return (
     <>
       <Navbar />
-      <div className="add-item">
+      <div className="add-item fadeIn wow" data-wow-delay="0.1s">
         {user && (
           <div className="add-title">
             <h1>
               <span>Hi, </span>
               {user.userid.split("@")[0]}
             </h1>
-            <p>See what you have<br></br> spend...</p>
+            <p>
+              See what you have<br></br> spend...
+            </p>
           </div>
         )}
         {!user && (

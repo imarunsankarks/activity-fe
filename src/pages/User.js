@@ -55,7 +55,7 @@ const User = () => {
     }
   };
 
-  const handleDelete = async () =>{
+  const handleDelete = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BE_URL}/api/user/` + user.user_id,
       {
@@ -73,17 +73,16 @@ const User = () => {
       console.log("User deleted!");
       logout();
     }
+  };
 
-  }
-
-  const showDelete = ()=>{
+  const showDelete = () => {
     setIsDeleteVisible(!isDeleteVisible);
-  }
+  };
 
   return (
     <>
       <Navbar />
-      <div className="user">
+      <div className="user fadeIn wow" data-wow-delay="0.1s">
         {user && (
           <>
             <div className="profile-pic">
@@ -122,9 +121,11 @@ const User = () => {
           </div>
         )}
       </div>
-      <div className={`user-delete-confirm ${isDeleteVisible ? 'show' : ''}`}>
+      <div className={`user-delete-confirm ${isDeleteVisible ? "show" : ""}`}>
         <p>Are you sure to delete your account?</p>
-        <button className="yes" onClick={handleDelete}>Yes</button>
+        <button className="yes" onClick={handleDelete}>
+          Yes
+        </button>
         <button onClick={showDelete}>No</button>
       </div>
     </>
