@@ -50,7 +50,7 @@ const QueryForm = () => {
     const json = await response.json();
 
     if (!response.ok) {
-      setError("Fill all the fields");
+      setError("Plan limit exceeded!");
     }
     if (response.ok) {
       setQuery("");
