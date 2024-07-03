@@ -65,7 +65,7 @@ const QueryForm = () => {
   return (
     <>
       <Navbar />
-      <form className="ask fadeIn wow" data-wow-delay="0.2s" onSubmit={handleSubmit}>
+      <form className="ask fadeIn wow" data-wow-delay="0.3s" onSubmit={handleSubmit}>
         <input
           type="text"
           onChange={(e) => setQuery(e.target.value)}

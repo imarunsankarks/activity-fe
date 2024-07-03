@@ -8,7 +8,7 @@ const Add = () => {
   return (
     <>
       <Navbar />
-      <div className="add-item fadeIn wow" data-wow-delay="0.2s">
+      <div className="add-item fadeIn wow" data-wow-delay="0.3s">
         {user && (
           <div className="add-title">
             <h1>
