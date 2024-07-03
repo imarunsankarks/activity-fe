@@ -19,42 +19,52 @@ const Login = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
   return (
-    <form className="login" onSubmit={handleSubmit}>
-      <h1>
-        <span>Hi, </span>Buddy
-      </h1>
-      <p>C'mon, let's see your expenses</p>
+    <>
+      {loading && (
+        <div className="loading-screen">
+          <div className="spinner"></div>
+          <h2>Logging in...</h2>
+        </div>
+      )}
+      {!loading && (
+        <form className="login" onSubmit={handleSubmit}>
+          <h1>
+            <span>Hi, </span>Buddy
+          </h1>
+          <p>C'mon, let's see your expenses</p>
 
-      <input
-        type="userid"
-        placeholder="userid"
-        onChange={(e) => {
-          setUserid(e.target.value);
-        }}
-        value={userid}
-      />
-      <div className="password-field">
-        <input
-          type={isPasswordVisible ? "text" : "password"}
-          placeholder="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          value={password}
-        />
-        <p className="eye-toggle" onClick={handleToggleVisibility}>
-          <FontAwesomeIcon icon={isPasswordVisible ? faEyeSlash : faEye} />
-        </p>
-      </div>
-      <button disabled={loading}>Login</button>
-      {error && <div className="error">{error}</div>}
-      <div className="to-signup">
-        <p>Are you new here?</p>
-        <Link to="/signup">
-          <button>SignUp</button>
-        </Link>
-      </div>
-    </form>
+          <input
+            type="userid"
+            placeholder="userid"
+            onChange={(e) => {
+              setUserid(e.target.value);
+            }}
+            value={userid}
+          />
+          <div className="password-field">
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              placeholder="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
+            />
+            <p className="eye-toggle" onClick={handleToggleVisibility}>
+              <FontAwesomeIcon icon={isPasswordVisible ? faEyeSlash : faEye} />
+            </p>
+          </div>
+          <button disabled={loading}>Login</button>
+          {error && <div className="error">{error}</div>}
+          <div className="to-signup">
+            <p>Are you new here?</p>
+            <Link to="/signup">
+              <button>SignUp</button>
+            </Link>
+          </div>
+        </form>
+      )}
+    </>
   );
 };
 

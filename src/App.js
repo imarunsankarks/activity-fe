@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -9,6 +10,17 @@ import User from "./pages/User";
 
 function App() {
   const { user } = useAuthContext();
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault(); 
+      window.location.href = '/'
+    };
+
+    window.onpopstate = handleBackButton;
+    return () => {
+      window.onpopstate = null; 
+    };
+  }, []);
 
   return (
     <div className="App">
