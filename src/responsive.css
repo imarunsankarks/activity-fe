@@ -929,6 +929,7 @@
 
   .searchNfind {
     position: relative;
+    margin-top: 15px;
   }
 
   .searchNfind button {
@@ -974,5 +975,20 @@
     margin-right: 10px;
     border-radius: 3px;
     transform: translateY(2px);
+  }
+
+  .home-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #1c1c1c;
+  }
+
+  .card-list {
+    margin-top: 188px;
   }
 }

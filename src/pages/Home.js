@@ -163,16 +163,19 @@ const Home = () => {
   };
 
   const searchFilter = (value) => {
-    if(selectedMonth || selectedDate){
+    if (selectedMonth || selectedDate) {
       setFilteredActivities(
         activity.filter((item) => {
           const itemDate = new Date(item.date);
-          return ((item.title.toLowerCase().includes(value.toLowerCase()) &&
-          itemDate.getMonth() === selectedMonth) ||(item.title.toLowerCase().includes(value.toLowerCase()) &&
-          itemDate.toDateString() === selectedDate) );
+          return (
+            (item.title.toLowerCase().includes(value.toLowerCase()) &&
+              itemDate.getMonth() === selectedMonth) ||
+            (item.title.toLowerCase().includes(value.toLowerCase()) &&
+              itemDate.toDateString() === selectedDate)
+          );
         })
       );
-    }else{
+    } else {
       setFilteredActivities(
         activity.filter((item) => {
           return item.title.toLowerCase().includes(value.toLowerCase());
@@ -202,62 +205,64 @@ const Home = () => {
       )}
       {!loading && (
         <div className="home">
-          <h1>
-            <span>Hi, </span>
-            {user.userid.split("@")[0]}
-          </h1>
-          <div className="dateFilter">
-            <div className="day-input">
-              <input
-                type="date"
-                onChange={(e) => {
-                  dayUpdate(e.target.value);
-                }}
-                id="day-filter"
-              />
-              {!selectedDate && <label>Day</label>}
-            </div>
-            <div className="month-input">
-              <input
-                type="month"
-                onChange={(e) => {
-                  monthUpdate(e.target.value);
-                }}
-                id="month-filter"
-              />
+          <div className="home-fixed">
+            <h1>
+              <span>Hi, </span>
+              {user.userid.split("@")[0]}
+            </h1>
+            <div className="dateFilter">
+              <div className="day-input">
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    dayUpdate(e.target.value);
+                  }}
+                  id="day-filter"
+                />
+                {!selectedDate && <label>Day</label>}
+              </div>
+              <div className="month-input">
+                <input
+                  type="month"
+                  onChange={(e) => {
+                    monthUpdate(e.target.value);
+                  }}
+                  id="month-filter"
+                />
 
-              {!selectedMonth && <label>Month</label>}
+                {!selectedMonth && <label>Month</label>}
+              </div>
             </div>
-          </div>
-          <select
-            className="typeFilter"
-            value={selectedType}
-            onChange={(e) => typeUpdate(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="expense">Expense</option>
-            <option value="savings">Savings</option>
-          </select>
-          <div className="searchNfind">
-            <input
-              className="search-field"
-              type="text"
-              onChange={(e) => {
-                searchFilter(e.target.value);
-                setSearch(e.target.value);
-              }}
-              value={search}
-              placeholder="search here..."
-            />
-            <button
-              style={{ opacity: search ? 1 : 0 }}
-              onClick={() => {
-                searchFilter("");
-                setSearch("");
-              }}
+            <select
+              className="typeFilter"
+              value={selectedType}
+              onChange={(e) => typeUpdate(e.target.value)}
             >
-              x
-            </button>
+              <option value="all">All</option>
+              <option value="expense">Expense</option>
+              <option value="savings">Savings</option>
+            </select>
+            <div className="searchNfind">
+              <input
+                className="search-field"
+                type="text"
+                onChange={(e) => {
+                  searchFilter(e.target.value);
+                  setSearch(e.target.value);
+                }}
+                value={search}
+                placeholder="search here..."
+              />
+              <button
+                style={{ opacity: search ? 1 : 0 }}
+                onClick={() => {
+                  searchFilter("");
+                  setSearch("");
+                }}
+              >
+                x
+              </button>
+            </div>
           </div>
 
           <motion.div

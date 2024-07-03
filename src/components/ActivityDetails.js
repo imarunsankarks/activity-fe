@@ -35,7 +35,7 @@ const ActivityDetails = (props) => {
           color: "#fff",
           boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
         },
-        duration: 1000,
+        duration: 1500,
       });
     } else {
       // onUpdate();
@@ -48,7 +48,7 @@ const ActivityDetails = (props) => {
           color: "#fff",
           boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
         },
-        duration: 1000,
+        duration: 1500,
       });
     }
   };
@@ -77,7 +77,7 @@ const ActivityDetails = (props) => {
           color: "#fff",
           boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
         },
-        duration: 1000,
+        duration: 1500,
       });
     } else {
       const time = await response.json();
@@ -93,7 +93,7 @@ const ActivityDetails = (props) => {
           color: "#fff",
           boxShadow: "0 3px 0px rgba(0, 0, 0, 0.1)",
         },
-        duration: 1000,
+        duration: 1500,
       });
     }
   };
@@ -186,7 +186,7 @@ const ActivityDetails = (props) => {
         >
           C
         </span>
-        <Toaster />
+        
       </form>
 
       <div className="delete-confirm">
@@ -210,6 +210,7 @@ const ActivityDetails = (props) => {
           </button>
         </div>
       </div>
+      <Toaster />
     </motion.div>
   );
 };

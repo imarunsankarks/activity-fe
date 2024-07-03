@@ -61,7 +61,7 @@ const ActivityForm = () => {
             color: '#fff',
             boxShadow: '0 3px 0px rgba(0, 0, 0, 0.1)',
           },
-          duration: 1000,
+          duration: 1500,
         }
       );
       // props.onAdd(json);
