@@ -42,7 +42,7 @@ const Home = () => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [user,logout]);
+  }, [user]);
 
   const handleDelete = (id) => {
     const updatedActivities = filteredActivities.filter(
