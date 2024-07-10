@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ActivityDetails from "../components/ActivityDetails";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 
@@ -14,6 +15,7 @@ const Home = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const { logout } = useLogout();
 
   useEffect(() => {
     if (user) {
@@ -24,6 +26,9 @@ const Home = () => {
       })
         .then((response) => {
           if (!response.ok) {
+            if (response.status === 401) {
+              logout();
+            }
             throw new Error("Network response was not ok");
           }
           return response.json();
@@ -37,7 +42,7 @@ const Home = () => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [user]);
+  }, [user,logout]);
 
   const handleDelete = (id) => {
     const updatedActivities = filteredActivities.filter(
