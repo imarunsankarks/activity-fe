@@ -17,6 +17,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const { logout } = useLogout();
 
+
   useEffect(() => {
     if (user) {
       fetch(`${process.env.REACT_APP_BE_URL}/api/routes/`, {

@@ -1,12 +1,13 @@
+import { useCallback } from 'react';
 import { useAuthContext } from "./useAuthContext";
 
-export const useLogout = ()=>{
-    const {dispatch} = useAuthContext()
-    const logout = () => {
-        localStorage.removeItem('user');
+export const useLogout = () => {
+  const { dispatch } = useAuthContext();
 
-        dispatch({type:'LOGOUT'})
-    }
+  const logout = useCallback(() => {
+    localStorage.removeItem('user');
+    dispatch({ type: 'LOGOUT' });
+  }, [dispatch]); 
 
-    return {logout};
-}
+  return { logout };
+};
